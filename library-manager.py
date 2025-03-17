@@ -4,10 +4,10 @@ import database as db
 import plotly.express as px
 import base64
 
-# Set the page title for the browser tab
+
 st.set_page_config(page_title="NovelNest - Your Personal Library Manager", page_icon="📚")
 
-# Function to set background image with blur and improve text visibility
+# st.markdown for styling
 def set_bg_hack(image_url):
     st.markdown(
         f"""
@@ -105,25 +105,25 @@ def set_bg_hack(image_url):
         unsafe_allow_html=True
     )
 
-# Function to show genre distribution with multi-colored bars and transparent background
+# Function to show genre distribution
 def show_genre_distribution(df):
     genre_counts = df['Genre'].value_counts().reset_index()
     genre_counts.columns = ['Genre', 'Count']
     fig = px.bar(genre_counts, x='Genre', y='Count', title="Genre Distribution", color='Genre')
     fig.update_layout({
-        'plot_bgcolor': 'rgba(0, 0, 0, 0)',  # Transparent background
-        'paper_bgcolor': 'rgba(0, 0, 0, 0)',  # Transparent background
+        'plot_bgcolor': 'rgba(0, 0, 0, 0)',  
+        'paper_bgcolor': 'rgba(0, 0, 0, 0)',  
     })
     st.plotly_chart(fig)
 
-# Function to show reading progress with multi-colored pie chart and transparent background
+# Function to show reading progress
 def show_reading_progress(df):
     status_counts = df['Status'].value_counts().reset_index()
     status_counts.columns = ['Status', 'Count']
     fig = px.pie(status_counts, values='Count', names='Status', title="Reading Progress", color='Status')
     fig.update_layout({
-        'plot_bgcolor': 'rgba(0, 0, 0, 0)',  # Transparent background
-        'paper_bgcolor': 'rgba(0, 0, 0, 0)',  # Transparent background
+        'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+        'paper_bgcolor': 'rgba(0, 0, 0, 0)',
     })
     st.plotly_chart(fig)
 
@@ -132,7 +132,7 @@ def display_rating(rating):
     stars = "⭐" * int(rating) + "☆" * (5 - int(rating))
     return stars
 
-# Function to display books in a card layout with image on the right and info on the left
+# Function to display books in a card layout
 def display_books(books):
     if books:
         df = pd.DataFrame(books, columns=["ID", "Title", "Author", "Genre", "Year", "Rating", "Status", "Image"])
@@ -242,7 +242,7 @@ def home_page():
         unsafe_allow_html=True
     )
 
-# Set the background image
+
 set_bg_hack("https://images.unsplash.com/photo-1497633762265-9d179a990aa6")
 
 # Sidebar for navigation
